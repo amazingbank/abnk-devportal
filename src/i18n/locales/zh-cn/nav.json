@@ -1,0 +1,73 @@
+{
+  "mainAria": "主导航",
+  "homeLabel": "首页",
+  "menu": {
+    "open": "打开菜单",
+    "close": "关闭菜单"
+  },
+  "sections": {
+    "methodology": {
+      "label": "方法论",
+      "eyebrow": "板块 01",
+      "title": "方法论",
+      "description": "ASDM 体系的三根支柱——上下文工程、驾驭工程、自我迭代；源自公开工作坊课程的方法论导读。",
+      "deliverTask": "3.6"
+    },
+    "planning": {
+      "label": "规划",
+      "eyebrow": "板块 02",
+      "title": "规划原文",
+      "description": "ADR-001–010 与设计文档原文浏览——回到架构决策的完整语境。",
+      "deliverTask": "3.6"
+    },
+    "decisions": {
+      "label": "决策",
+      "eyebrow": "板块 02",
+      "title": "决策时间线",
+      "description": "10 个 ADR 与各 Part 的拍板记录（D 表）按日期合并成一条时间线——项目如何被逐个决策塑造。",
+      "deliverTask": "3.3"
+    },
+    "timeline": {
+      "label": "时间线",
+      "eyebrow": "板块 03",
+      "title": "迭代时间线",
+      "description": "Sprint → Part → Phase → Task 四层下钻，每层链到证据指针——证据链可被点击验证。",
+      "deliverTask": "3.2"
+    },
+    "evidence": {
+      "label": "证据",
+      "eyebrow": "板块 04",
+      "title": "任务证据链",
+      "description": "全部 Phase 文档与证据素材（yaml/png/txt/json），按 Part 分桶浏览。",
+      "deliverTask": "3.6"
+    },
+    "journey": {
+      "label": "旅程",
+      "eyebrow": "板块 05",
+      "title": "E2E 旅程",
+      "description": "手机银行与后台的五步用户旅程与余额核对——快照、截图与证据按原样编排。",
+      "deliverTask": "3.5"
+    },
+    "metrics": {
+      "label": "指标",
+      "eyebrow": "板块 06",
+      "title": "指标仪表盘",
+      "description": "速度与质量量化指标一屏可见；未完成项如实按「规划中」展示（诚实性原则 D6）。",
+      "deliverTask": "3.4"
+    },
+    "governance": {
+      "label": "治理",
+      "eyebrow": "板块 07",
+      "title": "治理与开放",
+      "description": "治理导读与仓库开放边界——五仓定位与两条保密边界的自我约束。",
+      "deliverTask": "3.6"
+    },
+    "reproduce": {
+      "label": "复现",
+      "eyebrow": "板块 08",
+      "title": "复现指南",
+      "description": "从 checkout 到上线的复现命令链——数据更新与发布流程固化成手册。",
+      "deliverTask": "4.4"
+    }
+  }
+}

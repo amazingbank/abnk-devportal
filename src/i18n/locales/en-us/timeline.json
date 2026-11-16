@@ -1,0 +1,47 @@
+{
+  "statusLabels": {
+    "completed": "Done",
+    "in_progress": "In progress",
+    "pending": "Pending",
+    "moved": "Moved",
+    "planned-backlog": "Roadmap placeholder",
+    "draft": "Draft"
+  },
+  "sprint": {
+    "partsLabel": "Part",
+    "docsLabel": "Phase/docs",
+    "tasksLabel": "Tasks",
+    "movedLabel": "Moved",
+    "docsCount": "{count} docs",
+    "tasksCount": "{count} tasks"
+  },
+  "part": {
+    "phasesTitle": "Phase documents",
+    "companionDocsTitle": "Companion docs",
+    "tasksTitle": "Task list",
+    "partEvidenceTitle": "Part-level evidence",
+    "empty": "No structured entries for this part yet — shown as-is, never invented"
+  },
+  "phase": {
+    "docOriginal": "Document original",
+    "relatedDocs": "Docs in this phase",
+    "noteLabel": "Note",
+    "movedToLabel": "Moved to",
+    "evidenceTitle": "Evidence files",
+    "tasksTitle": "Tasks in this phase",
+    "emptyEvidence": "No structured evidence files for this phase yet — shown as-is, never invented"
+  },
+  "task": {
+    "evidenceTitle": "Task evidence",
+    "movedToLabel": "Moved to",
+    "movedFromLabel": "Continued from",
+    "noteLabel": "Note",
+    "emptyEvidence": "No structured evidence files for this task yet — shown as-is, never invented",
+    "openOriginal": "Open the original"
+  },
+  "breadcrumb": {
+    "sprint": "Sprint overview",
+    "phase": "Phase",
+    "task": "Task"
+  }
+}

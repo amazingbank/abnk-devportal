@@ -1,8 +1,13 @@
 {
-  "skeleton": {
-    "eyebrow": "工程骨架",
-    "title": "数据管线就绪，页面渲染随 Phase 3 就位",
-    "body": "本仓是纯渲染器（D7）：不生产内容，只消费 abnk-asdm 仓的结构化过程资产。当前工程骨架、i18n 机制与数据契约已锁定（Phase 1 任务 1.2），八板块页面与叙事内容随后续 Phase 交付。",
-    "phaseNote": "当前阶段：Sprint v0.0.1 · Part 04 · Phase 1 · 任务 1.2"
+  "hero": {
+    "eyebrow": "AMAZING BANK · DEV PORTAL",
+    "title": "一座银行如何被 AI 造出来：过程资产，原样披露",
+    "body": "这里是 Amazing Bank 的软件工程过程全景窗口。本站是一个纯渲染器（不生产内容），把 ASDM 体系下产出的规划、决策、迭代、证据、测试与指标，从过程资产仓原样发布到公网。",
+    "phaseNote": "当前阶段：Sprint v0.0.1 · Part 04 · Phase 3 · 站点层（任务 3.1 路由骨架已就位）"
+  },
+  "directory": {
+    "eyebrow": "板块导览",
+    "title": "八大板块",
+    "hint": "从方法论到复现指南——每个板块都是同一批过程资产的不同切面。"
   }
 }

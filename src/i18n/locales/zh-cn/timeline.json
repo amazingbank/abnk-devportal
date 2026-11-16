@@ -1,0 +1,47 @@
+{
+  "statusLabels": {
+    "completed": "已完成",
+    "in_progress": "进行中",
+    "pending": "待执行",
+    "moved": "已移交",
+    "planned-backlog": "路线占位",
+    "draft": "草稿"
+  },
+  "sprint": {
+    "partsLabel": "Part",
+    "docsLabel": "Phase/文档",
+    "tasksLabel": "任务",
+    "movedLabel": "移交",
+    "docsCount": "{count} 文档",
+    "tasksCount": "{count} 任务"
+  },
+  "part": {
+    "phasesTitle": "Phase 文档",
+    "companionDocsTitle": "伴生文档",
+    "tasksTitle": "任务清单",
+    "partEvidenceTitle": "Part 级证据",
+    "empty": "该 Part 暂无结构化条目——如实展示（不虚构）"
+  },
+  "phase": {
+    "docOriginal": "文档原文",
+    "relatedDocs": "同 Phase 文档",
+    "noteLabel": "备注",
+    "movedToLabel": "移交目标",
+    "evidenceTitle": "证据文件",
+    "tasksTitle": "本 Phase 任务",
+    "emptyEvidence": "本 Phase 暂无结构化证据文件——如实展示（不虚构）"
+  },
+  "task": {
+    "evidenceTitle": "任务证据",
+    "movedToLabel": "移交至",
+    "movedFromLabel": "承接自",
+    "noteLabel": "备注",
+    "emptyEvidence": "本任务暂无结构化证据文件——如实展示（不虚构）",
+    "openOriginal": "打开原文"
+  },
+  "breadcrumb": {
+    "sprint": "Sprint 总览",
+    "phase": "Phase",
+    "task": "任务"
+  }
+}

@@ -6,5 +6,14 @@
 export { interpolate } from './interpolate';
 export { resolveBrowserLocale } from './locale';
 export { parseLocaleFromPathname, swapLocalePrefix } from './locale-url';
-export { useCommon, useHome, useLocale } from './use-locale';
-export { DEFAULT_LOCALE, LOCALES, type Common, type Home, type Locale, type Translations } from './resources';
+export { useCommon, useHome, useLocale, useNav, useTimeline } from './use-locale';
+export {
+  DEFAULT_LOCALE,
+  LOCALES,
+  type Common,
+  type Home,
+  type Locale,
+  type Nav,
+  type Timeline,
+  type Translations,
+} from './resources';

@@ -1,8 +1,13 @@
 {
-  "skeleton": {
-    "eyebrow": "Skeleton",
-    "title": "Data pipeline ready; pages arrive with Phase 3",
-    "body": "This repo is a pure renderer (D7): it produces no content and only consumes structured process assets from the abnk-asdm repository. The project skeleton, i18n mechanism and data contract are now locked (Phase 1, task 1.2); the eight-section pages and narrative content follow in later phases.",
-    "phaseNote": "Current stage: Sprint v0.0.1 · Part 04 · Phase 1 · Task 1.2"
+  "hero": {
+    "eyebrow": "AMAZING BANK · DEV PORTAL",
+    "title": "How a bank gets built by AI — the process, disclosed as-is",
+    "body": "The engineering-process window of Amazing Bank. This site is a pure renderer: it produces no content of its own, but publishes the plans, decisions, iterations, evidence, tests and metrics that the ASDM pipeline generates — straight from the process-assets repository.",
+    "phaseNote": "Current stage: Sprint v0.0.1 · Part 04 · Phase 3 · Site layer (task 3.1 routing skeleton in place)"
+  },
+  "directory": {
+    "eyebrow": "SECTION DIRECTORY",
+    "title": "Eight sections",
+    "hint": "From methodology to reproduction — every section is a different lens on the same process assets."
   }
 }

@@ -7,13 +7,9 @@
     "name": "ABNK Dev Portal",
     "homeLabel": "ABNK Dev Portal home"
   },
-  "nav": {
-    "mainAria": "Main navigation",
-    "primary": [],
-    "menu": {
-      "open": "Open menu",
-      "close": "Close menu"
-    }
+  "shell": {
+    "skipToContent": "Skip to main content",
+    "languageAria": "Switch language"
   },
   "language": {
     "label": "Language",
@@ -24,7 +20,14 @@
   },
   "footer": {
     "tagline": "A renderer, not a producer: ASDM process assets disclosed as-is — plans, decisions, iterations, evidence, tests and metrics.",
-    "repoLabel": "GitHub repository",
+    "repoAsdmLabel": "Data source repo abnk-asdm",
+    "repoPortalLabel": "This repo abnk-devportal",
     "copyright": "© {year} Amazing Bank (ABNK)"
+  },
+  "section": {
+    "plannedEyebrow": "Section pending · planned",
+    "plannedTitle": "Section page under construction",
+    "plannedBody": "This section's data and content rendering arrive with task {task}; what you see now is the routing and layout skeleton from task 3.1 — unfinished work shown as unfinished (honesty principle D6).",
+    "backHome": "Back to the home directory"
   }
 }

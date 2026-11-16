@@ -1,0 +1,73 @@
+{
+  "mainAria": "Main navigation",
+  "homeLabel": "Home",
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "sections": {
+    "methodology": {
+      "label": "Methodology",
+      "eyebrow": "Section 01",
+      "title": "Methodology",
+      "description": "The three pillars of ASDM — context engineering, harness engineering and self-iteration — a guided reading adapted from the public workshop curriculum.",
+      "deliverTask": "3.6"
+    },
+    "planning": {
+      "label": "Planning",
+      "eyebrow": "Section 02",
+      "title": "Planning Documents",
+      "description": "The full texts of ADR-001 through 010 and the design documents — architectural decisions in their original context.",
+      "deliverTask": "3.6"
+    },
+    "decisions": {
+      "label": "Decisions",
+      "eyebrow": "Section 02",
+      "title": "Decision Timeline",
+      "description": "Ten ADRs plus each Part's decision log merged on one chronological axis — how this project got shaped, call by call.",
+      "deliverTask": "3.3"
+    },
+    "timeline": {
+      "label": "Timeline",
+      "eyebrow": "Section 03",
+      "title": "Iteration Timeline",
+      "description": "Sprint → Part → Phase → Task: four levels of drill-down with evidence pointers at every step — a click-verifiable chain of proof.",
+      "deliverTask": "3.2"
+    },
+    "evidence": {
+      "label": "Evidence",
+      "eyebrow": "Section 04",
+      "title": "Task Evidence Chain",
+      "description": "Every Phase document and evidence artifact (yaml/png/txt/json), browsable bucketed by Part.",
+      "deliverTask": "3.6"
+    },
+    "journey": {
+      "label": "Journey",
+      "eyebrow": "Section 05",
+      "title": "E2E Journey",
+      "description": "The five-step mobile banking and back-office journeys with balance reconciliation — snapshots, screenshots and evidence, laid out as-is.",
+      "deliverTask": "3.5"
+    },
+    "metrics": {
+      "label": "Metrics",
+      "eyebrow": "Section 06",
+      "title": "Metrics Dashboard",
+      "description": "Speed and quality metrics at a glance; unfinished items shown as planned — honesty by design (D6).",
+      "deliverTask": "3.4"
+    },
+    "governance": {
+      "label": "Governance",
+      "eyebrow": "Section 07",
+      "title": "Governance & Openness",
+      "description": "Governance notes and the repository-openness boundary — five repositories, two red lines, self-imposed.",
+      "deliverTask": "3.6"
+    },
+    "reproduce": {
+      "label": "Reproduce",
+      "eyebrow": "Section 08",
+      "title": "Reproduction Guide",
+      "description": "The command chain from checkout to deployment — data refresh and release, made repeatable.",
+      "deliverTask": "4.4"
+    }
+  }
+}
