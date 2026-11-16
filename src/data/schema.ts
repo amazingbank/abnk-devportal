@@ -53,6 +53,51 @@ export interface TaskEntry {
   note?: string;
 }
 
+/**
+ * Part Plan「决策记录」表的决策条目（Part04 任务 3.3 增量，与生成器
+ * parse_decisions 双侧同步）：id 带 D 前缀，date 为内联日期（如 D8）或
+ * 表头拍板日期；revised_in_phase 是〔…修订，Phase N〕标注的机械提取
+ * （决策时间线页「修订上下文」跳转的契约数据）。Part01 无决策表 → 字段省略。
+ *
+ * A decision row of a Part Plan's "决策记录" table (Part04 task 3.3
+ * increment, synced with the generator's parse_decisions): the id carries the
+ * D prefix, the date is the inline one (e.g. D8) or the table's heading
+ * date; revised_in_phase mechanically captures the "〔…修订，Phase N〕"
+ * annotation (the contract data behind the decision page's revision-context
+ * jump). Part01 has no decision table → the field is omitted.
+ */
+export interface DecisionEntry {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  /** 修订上下文（〔修订〕标注提取的 Phase 键，如 '5'——跳转目标）。 */
+  /** Revision context (the Phase key captured from the revision annotation, e.g. '5' — the jump target). */
+  revised_in_phase?: string;
+}
+
+/** ADR 状态词表（planning profile，与生成器 ADR_STATUS 对齐——ADR 惯例词，与 Sprints 状态词表分立）。 */
+/** ADR status vocabulary (planning profile, aligned with the generator's ADR_STATUS — conventional ADR words, separate from the Sprints vocabulary). */
+export type AdrStatus = 'accepted' | 'proposed' | 'rejected' | 'superseded';
+
+/**
+ * planning 树 ADR 的索引条目（Part04 任务 3.3 增量）：id 为文件名三位前缀，
+ * title/date 从正文提取，status 来自 front-matter——决策时间线页 ADR 卡
+ * 与原文页路由的契约数据。
+ *
+ * Index entry of a planning-tree ADR (Part04 task 3.3 increment): the id is
+ * the three-digit filename prefix, title/date are extracted from the body,
+ * status comes from the front-matter — the contract data behind the decision
+ * page's ADR cards and the original-doc route.
+ */
+export interface AdrEntry {
+  id: string;
+  doc: string;
+  title: string;
+  date: string;
+  status: AdrStatus;
+}
+
 /** 一个 Part（交付单元）的索引条目。 */
 /** Index entry of one delivery part. */
 export interface PartEntry {
@@ -61,6 +106,9 @@ export interface PartEntry {
   date: string;
   docs: DocEntry[];
   tasks: TaskEntry[];
+  /** 决策表条目（Part01 无决策表 → 省略；生成器 fail-loud 保证有表必有行）。 */
+  /** Decision-table entries (omitted when a part has no table, e.g. Part01; the generator guarantees rows whenever a table exists). */
+  decisions?: DecisionEntry[];
 }
 
 /**
@@ -126,6 +174,9 @@ export interface SprintIndex {
   /** 移交往返链（任务 3.2 起；生成器守恒校验保证与 moved 任务一致）。 */
   /** Moved-task round-trip chain (since task 3.2; the generator's conservation check keeps it aligned with the moved tasks). */
   moved_links: MovedLink[];
+  /** planning 树 ADR 索引（任务 3.3 起；生成器 fail-loud 保证非空）。 */
+  /** Planning-tree ADR index (since task 3.3; the generator's fail-loud checks guarantee non-emptiness). */
+  adrs: AdrEntry[];
 }
 
 /** 达成/总计计数（VP、单测、E2E 断言）。 */
