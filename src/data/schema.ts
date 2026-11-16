@@ -12,13 +12,24 @@
 /** Status vocabulary, word-for-word with the generator's VALID_STATUS set. */
 export type Status = 'completed' | 'pending' | 'in_progress' | 'moved' | 'planned-backlog' | 'draft';
 
+/**
+ * 数据集 locale 枚举（Part04 任务 2.3 起）：zh-CN 全量主 + en-US 增量语义
+ * 重写（决策 D3/D4——en 是语义重写不是翻译，按 doc id 对称生长）。
+ *
+ * Locale enum of the dataset (since Part04 task 2.3): zh-CN carries full
+ * coverage while en-US grows incrementally as semantic rewrites (decision
+ * D3/D4 — English editions are rewrites, not translations; they grow per
+ * doc id).
+ */
+export type Locale = 'zh-CN' | 'en-US';
+
 /** Part 内单篇文档的索引条目（来自文档 front-matter）。 */
 /** Index entry of a single document inside a part (from its front-matter). */
 export interface DocEntry {
   doc: string;
   status: Status;
   date: string;
-  locale: string;
+  locale: Locale;
   evidence: string;
   /** Phase 编号（'0'–'7' 或 'plan' 等语义标签）。 */
   /** Phase number ('0'–'7') or a semantic label such as 'plan'. */
@@ -52,12 +63,44 @@ export interface PartEntry {
   tasks: TaskEntry[];
 }
 
+/** portal-content 分区状态词表（与生成器 PORTAL_STATUS 对齐）。 */
+/** portal-content status vocabulary, aligned with the generator's PORTAL_STATUS. */
+export type PortalStatus = 'published' | 'in_progress' | 'draft';
+
+/**
+ * portal-content 分区的索引条目（Part04 任务 2.3 locale 路由）：同一 doc id
+ * 逐 locale 注册——双语 doc 双条目（双 locale 注册），单语 doc 单条目且带
+ * fallback 标记（值 = 仅有 locale）。渲染层按 locale 字段路由、按 fallback
+ * 回退，无需扫描目录树。
+ *
+ * Index entry of the portal-content partition (Part04 task 2.3 locale
+ * routing): one entry per locale of the same doc id — a bilingual doc has
+ * two entries (both locales registered), a monolingual doc one entry with a
+ * fallback marker (its value = the only available locale). The render side
+ * routes on `locale` and falls back on `fallback`; no directory scanning.
+ */
+export interface PortalContentEntry {
+  /** 分区名（overview / methodology / governance——与目录名一致）。 */
+  /** Section name (overview / methodology / governance — matches the directory). */
+  section: string;
+  doc: string;
+  locale: Locale;
+  status: PortalStatus;
+  date?: string;
+  /** 单语 doc 的回退标记（双语 doc 无此字段）。 */
+  /** Fallback marker of a monolingual doc (absent on bilingual docs). */
+  fallback?: Locale;
+}
+
 /** $INDEX/sprint-v0.0.1.yaml 的顶层形态（satisfies 校验样例经 Widen 消费）。 */
 /** Top-level shape of $INDEX/sprint-v0.0.1.yaml (consumed via Widen by the satisfies sample). */
 export interface SprintIndex {
   schema_version: number;
   sprint: string;
   parts: PartEntry[];
+  /** portal-content 分区条目（任务 2.3 起；生成器 fail-loud 保证非空）。 */
+  /** portal-content section entries (since task 2.3; the generator's fail-loud checks guarantee non-emptiness). */
+  portal_content: PortalContentEntry[];
 }
 
 /** 达成/总计计数（VP、单测、E2E 断言）。 */

@@ -10,6 +10,8 @@
 #   ../.asdm/workspace/index                        → src/data/index/
 #   ../.asdm/workspace/docs/Sprints                 → src/data/sprints/
 #   ../.asdm/workspace/docs/planning/abnk-design    → src/data/planning/abnk-design/
+#   ../.asdm/workspace/docs/portal-content          → src/data/portal-content/
+#     （Part04 任务 2.3 首次扩面——portal-content 分区自本任务起进入数据集口径）
 #
 # 只读性证明：脚本在复制前后各取一次源仓 git status --porcelain 并比对，
 # 不一致即退出码 2（portal 对 abnk-asdm 纯只读，任何源侧残留变更都会被拦截）。
@@ -29,7 +31,8 @@
 # performs zero extraction at build time: this script only copies read-only
 # between the two checked-out repos, fully reproducible on any machine.
 # Mapping: workspace/{index → src/data/index, docs/Sprints → src/data/sprints,
-# docs/planning/abnk-design → src/data/planning/abnk-design}.
+# docs/planning/abnk-design → src/data/planning/abnk-design,
+# docs/portal-content → src/data/portal-content}.
 # Read-only proof: git status of the source repo is captured before and after
 # the copy; any drift fails with exit code 2.
 # Usage: run plain for sync + proof, or with --check for a dry-run listing.
@@ -43,6 +46,7 @@ ASDM="$PORTAL_ROOT/../.asdm"
 SRC_INDEX="$ASDM/workspace/index"
 SRC_SPRINTS="$ASDM/workspace/docs/Sprints"
 SRC_PLANNING="$ASDM/workspace/docs/planning/abnk-design"
+SRC_PORTAL_CONTENT="$ASDM/workspace/docs/portal-content"
 DEST="$PORTAL_ROOT/src/data"
 
 MODE="sync"
@@ -56,7 +60,7 @@ fi
 # 源就绪检查（fail-loud：源仓未按 README 并排 clone 时给出可执行的指引）。
 # Source readiness check (fail-loud with actionable guidance when the sibling
 # abnk-asdm clone is missing).
-for src in "$SRC_INDEX" "$SRC_SPRINTS" "$SRC_PLANNING"; do
+for src in "$SRC_INDEX" "$SRC_SPRINTS" "$SRC_PLANNING" "$SRC_PORTAL_CONTENT"; do
   if [[ ! -d "$src" ]]; then
     echo "ERROR: 源目录缺失: $src（abnk-asdm 须与本仓并排 clone，见 README「前置条件」）" >&2
     exit 1
@@ -74,6 +78,7 @@ MAPPING=(
   "$SRC_INDEX|index"
   "$SRC_SPRINTS|sprints"
   "$SRC_PLANNING|planning/abnk-design"
+  "$SRC_PORTAL_CONTENT|portal-content"
 )
 
 copy_count=0
@@ -105,4 +110,4 @@ if [[ "$baseline" != "$after" ]]; then
   exit 2
 fi
 
-echo "sync OK: 3 个映射已复制到 src/data/（index/sprints/planning/abnk-design），源仓只读性成立（porcelain 前后一致）"
+echo "sync OK: 4 个映射已复制到 src/data/（index/sprints/planning/abnk-design/portal-content），源仓只读性成立（porcelain 前后一致）"
