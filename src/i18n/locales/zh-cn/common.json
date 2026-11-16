@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "ABNK Dev Portal — Amazing Bank 工程过程全景",
+    "description": "Amazing Bank 的软件工程过程资产展示窗口：规划、决策、迭代、证据、测试与指标，全程如实披露。"
+  },
+  "brand": {
+    "name": "ABNK Dev Portal",
+    "homeLabel": "ABNK Dev Portal 首页"
+  },
+  "nav": {
+    "mainAria": "主导航",
+    "primary": [],
+    "menu": {
+      "open": "打开菜单",
+      "close": "关闭菜单"
+    }
+  },
+  "language": {
+    "label": "语言",
+    "switchTo": {
+      "en-us": "Switch to English",
+      "zh-cn": "切换到中文"
+    }
+  },
+  "footer": {
+    "tagline": "不生产内容的渲染器：把 ASDM 过程资产原样披露为规划、决策、迭代、证据、测试与指标。",
+    "repoLabel": "GitHub 仓库",
+    "copyright": "© {year} Amazing Bank（ABNK）"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "ABNK Dev Portal — How Amazing Bank Is Built, in the Open",
+    "description": "The engineering-process showcase of Amazing Bank: plans, decisions, iterations, evidence, tests and metrics — disclosed as they are."
+  },
+  "brand": {
+    "name": "ABNK Dev Portal",
+    "homeLabel": "ABNK Dev Portal home"
+  },
+  "nav": {
+    "mainAria": "Main navigation",
+    "primary": [],
+    "menu": {
+      "open": "Open menu",
+      "close": "Close menu"
+    }
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": {
+      "en-us": "Switch to English",
+      "zh-cn": "切换到中文"
+    }
+  },
+  "footer": {
+    "tagline": "A renderer, not a producer: ASDM process assets disclosed as-is — plans, decisions, iterations, evidence, tests and metrics.",
+    "repoLabel": "GitHub repository",
+    "copyright": "© {year} Amazing Bank (ABNK)"
+  }
+}

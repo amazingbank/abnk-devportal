@@ -1,0 +1,8 @@
+{
+  "skeleton": {
+    "eyebrow": "工程骨架",
+    "title": "数据管线就绪，页面渲染随 Phase 3 就位",
+    "body": "本仓是纯渲染器（D7）：不生产内容，只消费 abnk-asdm 仓的结构化过程资产。当前工程骨架、i18n 机制与数据契约已锁定（Phase 1 任务 1.2），八板块页面与叙事内容随后续 Phase 交付。",
+    "phaseNote": "当前阶段：Sprint v0.0.1 · Part 04 · Phase 1 · 任务 1.2"
+  }
+}
