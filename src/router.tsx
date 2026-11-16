@@ -5,7 +5,6 @@ import { Footer } from '@/components/layout/Footer';
 import { Nav } from '@/components/layout/Nav';
 import { LocaleProvider } from '@/i18n/locale-provider';
 import { DEFAULT_LOCALE, useCommon, type Nav as NavCopy } from '@/i18n';
-import { DecisionsPage } from '@/pages/DecisionsPage';
 import { EvidencePage } from '@/pages/EvidencePage';
 import { GovernancePage } from '@/pages/GovernancePage';
 import { HomeView } from '@/pages/HomeView';
@@ -14,6 +13,9 @@ import { MetricsPage } from '@/pages/MetricsPage';
 import { MethodologyPage } from '@/pages/MethodologyPage';
 import { PlanningPage } from '@/pages/PlanningPage';
 import { ReproducePage } from '@/pages/ReproducePage';
+import { AdrView } from '@/pages/decisions/AdrView';
+import { DecisionsPage } from '@/pages/decisions/DecisionsPage';
+import { DecisionTimeline } from '@/pages/decisions/DecisionTimeline';
 import { PartView } from '@/pages/timeline/PartView';
 import { PhaseView } from '@/pages/timeline/PhaseView';
 import { SprintView } from '@/pages/timeline/SprintView';
@@ -121,7 +123,7 @@ export function PortalRouter() {
         <Routes>
           <Route path="/:locale" element={<PortalLayout />}>
             <Route index element={<HomeView />} />
-            {SECTION_ROUTES.filter((r) => r.id !== 'timeline').map(({ id, path }) => {
+            {SECTION_ROUTES.filter((r) => r.id !== 'timeline' && r.id !== 'decisions').map(({ id, path }) => {
               // JSX 成员表达式只支持点号写法，索引取组件需先落到局部常量。
               // JSX member expressions only allow dot notation, so the indexed
               // component must first land in a local constant.
@@ -135,6 +137,12 @@ export function PortalRouter() {
               <Route path=":partId" element={<PartView />} />
               <Route path=":partId/phase/:phaseId" element={<PhaseView />} />
               <Route path=":partId/task/:taskId" element={<TaskView />} />
+            </Route>
+            {/* 决策时间线：ADR + Part 拍板记录按日期合并 + ADR 原文页（任务 3.3）。 */}
+            {/* Decision timeline: ADRs plus Part decisions merged by date, with ADR original pages (task 3.3). */}
+            <Route path="decisions" element={<DecisionsPage />}>
+              <Route index element={<DecisionTimeline />} />
+              <Route path="adr/:adrId" element={<AdrView />} />
             </Route>
             <Route path="*" element={<UnknownPath />} />
           </Route>

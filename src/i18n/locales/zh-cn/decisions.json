@@ -1,0 +1,29 @@
+{
+  "summary": {
+    "adrCount": "{count} 个 ADR",
+    "dCount": "{count} 条 Part 拍板记录",
+    "spanFrom": "起 {date}",
+    "spanTo": "至 {date}"
+  },
+  "statusLabels": {
+    "accepted": "已接受",
+    "proposed": "提议中",
+    "rejected": "已否决",
+    "superseded": "已被取代"
+  },
+  "card": {
+    "adrKind": "ADR",
+    "partKind": "PART 决策",
+    "partLink": "所属迭代",
+    "revisionContext": "修订上下文"
+  },
+  "adrView": {
+    "back": "返回决策时间线",
+    "status": "状态",
+    "loading": "原文加载中…",
+    "loadFail": "原文加载失败——如实展示，请重试或到源仓查看"
+  },
+  "breadcrumb": {
+    "root": "决策时间线"
+  }
+}

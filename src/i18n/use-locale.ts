@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { LocaleContext } from './locale-context';
-import type { Common, Home, Locale, Nav, Timeline } from './resources';
+import type { Common, Decisions, Home, Locale, Nav, Timeline } from './resources';
 
 export function useLocale() {
   const context = useContext(LocaleContext);
@@ -31,6 +31,12 @@ export function useNav(): Nav {
 /** Timeline copy (four-level drill-down, status vocabulary, move round-trip). */
 export function useTimeline(): Timeline {
   return useLocale().timeline;
+}
+
+/** 决策时间线页文案（ADR 状态词表/卡标签/修订上下文）。 */
+/** Decision-timeline copy (ADR status vocabulary, card labels, revision context). */
+export function useDecisions(): Decisions {
+  return useLocale().decisions;
 }
 
 export type { Locale };

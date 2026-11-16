@@ -4,7 +4,8 @@
 // 静态 import 打进主包；D3 口径「UI 双语 + 内容 zh 全量 + en 增量 fallback」，
 // 兜底语言取 zh-cn（内容主语言），与官网「国际银行 en 优先」相反。
 // 任务 3.1 扩展：nav 命名空间（八板块导航与页面级词条）自 common 中独立成包；
-// 任务 3.2 扩展：timeline 命名空间（四层下钻页词条：状态词表/层级标题/移交往返）。
+// 任务 3.2 扩展：timeline 命名空间（四层下钻页词条：状态词表/层级标题/移交往返）；
+// 任务 3.3 扩展：decisions 命名空间（决策时间线：ADR 状态词表/卡标签/修订上下文）。
 // Locale resource registry (isomorphic copy of abnk-website resources.ts, third reuse).
 // Difference: portal default locale is zh-cn (the primary content language per D3),
 // the inverse of the marketing website's en-first stance.
@@ -12,14 +13,18 @@
 // copy) is now a separate pack, split out of common.
 // Task 3.2 addition: the timeline namespace (four-level drill-down copy:
 // status vocabulary, level titles, move round-trip labels).
+// Task 3.3 addition: the decisions namespace (decision timeline: ADR status
+// vocabulary, card labels, revision-context labels).
 import zhCommon from './locales/zh-cn/common.json';
 import zhHome from './locales/zh-cn/home.json';
 import zhNav from './locales/zh-cn/nav.json';
 import zhTimeline from './locales/zh-cn/timeline.json';
+import zhDecisions from './locales/zh-cn/decisions.json';
 import enCommon from './locales/en-us/common.json';
 import enHome from './locales/en-us/home.json';
 import enNav from './locales/en-us/nav.json';
 import enTimeline from './locales/en-us/timeline.json';
+import enDecisions from './locales/en-us/decisions.json';
 
 export type Locale = 'en-us' | 'zh-cn';
 
@@ -49,15 +54,34 @@ export type Common = Widen<typeof zhCommon>;
 export type Home = Widen<typeof zhHome>;
 export type Nav = Widen<typeof zhNav>;
 export type Timeline = Widen<typeof zhTimeline>;
+export type Decisions = Widen<typeof zhDecisions>;
 
-export type Translations = { common: Common; home: Home; nav: Nav; timeline: Timeline };
+export type Translations = {
+  common: Common;
+  home: Home;
+  nav: Nav;
+  timeline: Timeline;
+  decisions: Decisions;
+};
 
 // 编译期结构校验：英文包键结构必须与中文包完全一致（Widen/satisfies 同构惯例）。
 // Compile-time structural check: the en pack must match the zh pack key-for-key
 // (the Widen/satisfies isomorphic convention).
-const english = { common: enCommon, home: enHome, nav: enNav, timeline: enTimeline } satisfies Translations;
+const english = {
+  common: enCommon,
+  home: enHome,
+  nav: enNav,
+  timeline: enTimeline,
+  decisions: enDecisions,
+} satisfies Translations;
 
 export const RESOURCES: Record<Locale, Translations> = {
-  'zh-cn': { common: zhCommon, home: zhHome, nav: zhNav, timeline: zhTimeline },
+  'zh-cn': {
+    common: zhCommon,
+    home: zhHome,
+    nav: zhNav,
+    timeline: zhTimeline,
+    decisions: zhDecisions,
+  },
   'en-us': english,
 };

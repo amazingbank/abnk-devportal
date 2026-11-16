@@ -1,0 +1,29 @@
+{
+  "summary": {
+    "adrCount": "{count} ADRs",
+    "dCount": "{count} Part decision records",
+    "spanFrom": "from {date}",
+    "spanTo": "to {date}"
+  },
+  "statusLabels": {
+    "accepted": "Accepted",
+    "proposed": "Proposed",
+    "rejected": "Rejected",
+    "superseded": "Superseded"
+  },
+  "card": {
+    "adrKind": "ADR",
+    "partKind": "PART DECISION",
+    "partLink": "Part on the timeline",
+    "revisionContext": "Revision context"
+  },
+  "adrView": {
+    "back": "Back to the decision timeline",
+    "status": "Status",
+    "loading": "Loading the original…",
+    "loadFail": "Failed to load the original — shown as-is; retry or check the source repo"
+  },
+  "breadcrumb": {
+    "root": "Decision timeline"
+  }
+}

@@ -1,4 +1,4 @@
-// 内链路由转换层（Sprint v0.0.1 Part04 任务 3.2；已知坑 2 的单点落位）：
+// 内链路由转换层（Sprint v0.0.1 Part04 任务 3.2 建基；任务 3.3 扩展）：
 // 数据树路径 ↔ 站点路由/资产 URL 的全部转换集中于此，六页面共用——
 // 散落各页面的字符串替换会在内容更新时静默断链，故转换只有这一处。
 //
@@ -6,11 +6,14 @@
 // （txt/md/json/yaml）以构建期 ?url 复制进产物——「构建纯复制」（D4）在资产层的
 // 体现；二进制截图不 import 进 JS，走后续任务的 public/evidence 清单直供通道。
 //
-// The single link-conversion layer (task 3.2; the landing spot of known
-// pitfall 2): every translation between data-tree paths and site routes /
-// asset URLs lives here and is shared by all six pages — scattered string
-// replacements would silently break links on content updates, so this module
-// is the only place that converts.
+// 任务 3.3 扩展：①planning 树 ADR 链接 → 站内决策页路由（markdown 内链优先
+// 站内跳转而非裸文件）；②源仓镜像映射从 sprints 单树扩展为四树通用。
+//
+// The single link-conversion layer (built in task 3.2, extended in task 3.3):
+// every translation between data-tree paths and site routes / asset URLs lives
+// here and is shared by all six pages — scattered string replacements would
+// silently break links on content updates, so this module is the only place
+// that converts.
 //
 // Asset channel (the text-asset shape of known pitfall 1): md documents and
 // text evidence files (txt/md/json/yaml) inside the sprints data tree are
@@ -18,6 +21,11 @@
 // copy" (D4) at the asset layer. Binary screenshots are never imported into
 // JS; they flow through the public/evidence manifest channel of the later
 // tasks.
+//
+// Task 3.3 additions: ① planning-tree ADR links resolve to in-portal decision
+// routes (in-document links prefer in-site hops over raw files); ② the
+// source-repo mirror mapping generalizes from the sprints tree alone to all
+// four synced trees.
 
 /** 构建期文档资产映射：sprints 树全部 zh-CN 目录下的 md 原文（?url 直供）。 */
 /** Build-time document asset map: every md original under the sprints tree (served via ?url). */
@@ -38,14 +46,18 @@ const evidenceUrlMap: Record<string, string> = import.meta.glob(
 /** Root prefix of the sprints data tree under src/data/ (the sync mapping target). */
 const SPRINTS_PREFIX = '/src/data/sprints/';
 
-/** 数据树路径 → 源仓 GitHub 公网地址的换算基（数据树文件在源仓的公开镜像）。 */
-/** Base for translating data-tree paths to the public GitHub mirror of the source repo. */
-const GITHUB_BLOB_BASE = 'https://github.com/amazingbank/abnk-asdm/blob/main/workspace/docs/Sprints';
+/** 源仓公网镜像基址（数据树文件在 abnk-asdm 公开仓的 blob 镜像）。 */
+/** Public mirror base of the source repo (blob mirror of data-tree files in abnk-asdm). */
+const GITHUB_BLOB_BASE = 'https://github.com/amazingbank/abnk-asdm/blob/main/workspace';
 
-/** 数据树内的一个可点击文件（构建期资产 URL + 展示名）。 */
-/** One clickable file of the data tree (build-time asset URL + display name). */
+/** planning 树 ADR 文档的路径形态（文件名三位前缀 = ADR id）。 */
+/** Path shape of a planning-tree ADR document (three-digit filename prefix = ADR id). */
+const ADR_PATH_RE = /^\/src\/data\/planning\/abnk-design\/adr\/zh-CN\/(\d{3})-[^/]+\.md$/;
+
+/** sprints 数据树内的一个可点击文件（构建期资产 URL + 展示名）。 */
+/** One clickable file of the sprints data tree (build-time asset URL + display name). */
 export interface DataFile {
-  /** 数据树绝对路径（/src/data/... 形态，键去前缀后的相对路径放 name）。 */
+  /** 数据树绝对路径（/src/data/... 形态）。 */
   /** Absolute path inside the data tree (/src/data/...). */
   path: string;
   /** 展示名（相对 artifacts 桶的路径，如 phaseP2/taskP2.4-transfer-evidence.txt）。 */
@@ -86,13 +98,25 @@ export function parseTaskRef(ref: string): TaskRef | null {
 export function timelineRoute(
   locale: string,
   partId?: string,
-  scope?: { kind: 'phase'; id: string } | { kind: 'task'; id: string },
+  scope?: { kind: 'phase' | 'task'; id: string },
 ): string {
   const base = `/${locale}/timeline`;
   if (!partId) return `${base}/`;
   const part = `${base}/${partId}`;
   if (!scope) return part;
   return `${part}/${scope.kind}/${scope.id}`;
+}
+
+/** ADR 原文页路由（decisions 板块内）。 */
+/** Route of an ADR original page (inside the decisions section). */
+export function adrRoute(locale: string, adrId: string): string {
+  return `/${locale}/decisions/adr/${adrId}`;
+}
+
+/** 决策时间线路由（板块根）。 */
+/** Route of the decision timeline (section root). */
+export function decisionsRoute(locale: string): string {
+  return `/${locale}/decisions/`;
 }
 
 /** Phase 文档原文的资产 URL（doc = 索引条目文件名；不在树内返回 null）。 */
@@ -139,26 +163,57 @@ export function taskEvidenceFiles(partId: string, taskId: string): DataFile[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** 内链解析结果三类：站内文档资产 / 源仓公网镜像 / 无法解析。 */
-/** Three resolution outcomes: in-tree doc asset, source-repo mirror, or unresolvable. */
+/**
+ * 数据树绝对路径 → 源仓公网镜像 URL（四树通用映射：sprints/planning/index/
+ * portal-content）。映射外返回 null。
+ *
+ * Absolute data-tree path → public source-repo mirror URL (the
+ * four-tree mapping: sprints/planning/index/portal-content); null outside
+ * every mapping.
+ */
+function dataPathToRepoUrl(abs: string): string | null {
+  const rel = abs.slice('/src/data/'.length);
+  if (rel.startsWith('sprints/')) {
+    return `${GITHUB_BLOB_BASE}/docs/Sprints/${rel.slice('sprints/'.length)}`;
+  }
+  if (rel.startsWith('planning/')) {
+    return `${GITHUB_BLOB_BASE}/docs/planning/${rel.slice('planning/'.length)}`;
+  }
+  if (rel.startsWith('index/')) {
+    return `${GITHUB_BLOB_BASE}/index/${rel.slice('index/'.length)}`;
+  }
+  if (rel.startsWith('portal-content/')) {
+    return `${GITHUB_BLOB_BASE}/docs/portal-content/${rel.slice('portal-content/'.length)}`;
+  }
+  return null;
+}
+
+/** 内链解析结果四类：站内路由 / 站内文档资产 / 源仓公网镜像 / 无法解析。 */
+/** Four resolution outcomes: in-site route, in-tree doc asset, source-repo mirror, or unresolvable. */
 export type ResolvedLink =
+  | { kind: 'route'; to: string }
   | { kind: 'doc'; url: string }
   | { kind: 'source-repo'; url: string }
   | { kind: 'unresolved'; url: null };
 
 /**
- * 相对链接解析（文档正文内链的路由语义转换——3.6 渲染管线消费）：
- * 以 fromAbs（数据树绝对路径）为锚解析相对链接；落在 sprints 数据树内 →
- * 构建期文档资产；树外 → 源仓公网镜像并显式标注（降级形态，已知坑 2）。
+ * 相对链接解析（文档正文内链的路由语义转换——3.3 决策页起用、3.6 渲染管线
+ * 全面消费）：以 fromAbs（数据树绝对路径）为锚解析相对链接；ADR 文档 → 站内
+ * 决策页路由；sprints 树内文件 → 构建期文档资产；四树内其余 → 源仓公网镜像
+ * 并显式标注（降级形态，已知坑 2）。
  *
  * Relative-link resolution (the route-semantics conversion for in-document
- * links — consumed by the 3.6 render pipeline): resolves the link against
- * fromAbs (an absolute data-tree path); targets inside the sprints tree map
- * to build-time doc assets, targets outside map to the public source-repo
- * mirror with an explicit out-of-scope marker (the degraded shape, pitfall 2).
+ * links — consumed by the 3.3 decision page, then by the 3.6 render pipeline
+ * at large): resolves the link against fromAbs (an absolute data-tree path);
+ * ADR documents map to in-portal decision routes, files inside the sprints
+ * tree map to build-time doc assets, other files inside the four synced
+ * trees map to the public source-repo mirror with an explicit out-of-scope
+ * marker (the degraded shape, pitfall 2).
  */
 export function resolveRelativeLink(fromAbs: string, link: string): ResolvedLink {
-  if (/^https?:\/\//.test(link) || link.startsWith('#')) return { kind: 'unresolved', url: null };
+  if (/^https?:\/\//.test(link) || link.startsWith('#') || link.startsWith('mailto:')) {
+    return { kind: 'unresolved', url: null };
+  }
   const dir = fromAbs.slice(0, fromAbs.lastIndexOf('/') + 1);
   const segments = (dir + link).split('?')[0].split('#')[0].split('/');
   const resolved: string[] = [];
@@ -168,10 +223,15 @@ export function resolveRelativeLink(fromAbs: string, link: string): ResolvedLink
     else resolved.push(seg);
   }
   const abs = `/${resolved.join('/')}`;
+  const adrMatch = ADR_PATH_RE.exec(abs);
+  if (adrMatch) {
+    return { kind: 'route', to: `/decisions/adr/${adrMatch[1]}` };
+  }
   if (abs in docUrlMap) return { kind: 'doc', url: docUrlMap[abs] };
   if (abs in evidenceUrlMap) return { kind: 'doc', url: evidenceUrlMap[abs] };
-  if (abs.startsWith(SPRINTS_PREFIX)) {
-    return { kind: 'source-repo', url: `${GITHUB_BLOB_BASE}/${abs.slice(SPRINTS_PREFIX.length)}` };
+  if (abs.startsWith('/src/data/')) {
+    const mirror = dataPathToRepoUrl(abs);
+    if (mirror) return { kind: 'source-repo', url: mirror };
   }
   return { kind: 'unresolved', url: null };
 }

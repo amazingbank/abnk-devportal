@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { Common, Home, Locale, Nav, Timeline } from './resources';
+import type { Common, Decisions, Home, Locale, Nav, Timeline } from './resources';
 
 type LocaleContextValue = {
   locale: Locale;
@@ -15,6 +15,9 @@ type LocaleContextValue = {
   /** 时间线页文案（四层下钻/状态词表/移交往返），随语言同步就绪。 */
   /** Timeline copy (four-level drill-down, status vocabulary, move round-trip), ready as the locale switches. */
   timeline: Timeline;
+  /** 决策时间线页文案（ADR 状态词表/卡标签/修订上下文），随语言同步就绪。 */
+  /** Decision-timeline copy (ADR status vocabulary, card labels, revision context), ready as the locale switches. */
+  decisions: Decisions;
   toggleLocale: () => void;
 };
 
