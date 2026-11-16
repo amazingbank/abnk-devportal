@@ -63,6 +63,28 @@ export interface PartEntry {
   tasks: TaskEntry[];
 }
 
+/**
+ * 移交往返链（Part04 任务 3.2 增量，与生成器 MOVED_LINKS 双侧同步）：
+ * 跨 Part 任务移交的结构化审计线索——from 侧任务渲染「移交至」、
+ * to 侧任务渲染「承接自」，双向跳转由渲染层据此构建；生成器 fail-loud
+ * 校验两端点存在、from 侧为 moved 状态、moved 任务与链条目守恒。
+ *
+ * Moved-task round-trip chain (Part04 task 3.2 increment, synced with the
+ * generator's MOVED_LINKS on both sides): the structured audit trail of
+ * cross-part task moves — the from task renders "moved to", the to task
+ * renders "continued from", and the render side builds both jumps from it.
+ * The generator validates, fail-loud, that both endpoints exist, the from
+ * side carries the moved status, and the moved tasks are exactly covered.
+ */
+export interface MovedLink {
+  /** 源任务（'part03:5.5' 形态——Part 内任务 id 前缀）。 */
+  /** Source task ('part03:5.5' — part id, colon, in-part task id). */
+  from_task: string;
+  /** 移交目标任务（同形态）。 */
+  /** Destination task (same shape). */
+  to_task: string;
+}
+
 /** portal-content 分区状态词表（与生成器 PORTAL_STATUS 对齐）。 */
 /** portal-content status vocabulary, aligned with the generator's PORTAL_STATUS. */
 export type PortalStatus = 'published' | 'in_progress' | 'draft';
@@ -101,6 +123,9 @@ export interface SprintIndex {
   /** portal-content 分区条目（任务 2.3 起；生成器 fail-loud 保证非空）。 */
   /** portal-content section entries (since task 2.3; the generator's fail-loud checks guarantee non-emptiness). */
   portal_content: PortalContentEntry[];
+  /** 移交往返链（任务 3.2 起；生成器守恒校验保证与 moved 任务一致）。 */
+  /** Moved-task round-trip chain (since task 3.2; the generator's conservation check keeps it aligned with the moved tasks). */
+  moved_links: MovedLink[];
 }
 
 /** 达成/总计计数（VP、单测、E2E 断言）。 */
