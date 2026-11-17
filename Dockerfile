@@ -63,6 +63,20 @@ COPY --from=asdm /workspace/docs/Sprints                /workspace/.asdm/workspa
 COPY --from=asdm /workspace/docs/planning/abnk-design   /workspace/.asdm/workspace/docs/planning/abnk-design
 COPY --from=asdm /workspace/docs/portal-content         /workspace/.asdm/workspace/docs/portal-content
 
+# .git 显式注入（Part04 任务 4.4）：sync 的数据新鲜度锚点（workspace/index 最后
+# commit）与只读性证明依赖 git 仓历史——附加上下文整体传输本就含 .git（52MB），
+# 此处仅补一层拷贝；builder-only，不进最终镜像。⚠️ 坑：分区选择性 COPY 不会
+# 自动带上 .git，0.1.2 首建即踩此坑（git log 静默失败 → 锚点缺失 → vite import
+# ENOENT）。
+# .git explicitly injected (Part04 task 4.4): the sync data-as-of anchor (the
+# index's last commit) and the read-only proof need the git history — the
+# additional context transfer already carries .git (52MB); this only adds one
+# layer copy. Builder-only, never entering the final image. ⚠️ Pitfall: the
+# partition-selective COPYs above do NOT bring .git along — the first 0.1.2
+# build hit exactly this (silent git log failure → missing anchor → vite
+# import ENOENT).
+COPY --from=asdm /.git /workspace/.asdm/.git
+
 # design tokens 注入 /workspace/abnk-system/channels/shared（附加上下文
 # tokens=../abnk-system/channels/shared，tailwind.config.js fail-loud 消费）
 # Design tokens injected under /workspace/abnk-system/channels/shared
