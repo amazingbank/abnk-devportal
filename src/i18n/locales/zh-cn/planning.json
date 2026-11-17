@@ -1,0 +1,19 @@
+{
+  "list": {
+    "lead": "回到架构决策的完整语境——设计文档分区浏览（ADR 全集见「决策」板块）。",
+    "readme": "设计文档导览（README）",
+    "groups": {
+      "00-baseline": "事实基线（实测，非设计）",
+      "01-product": "产品",
+      "02-architecture": "架构",
+      "03-data-model": "数据模型",
+      "04-operations": "运营工程",
+      "05-domains": "业务域",
+      "06-evolution": "演进路线"
+    },
+    "adrLink": "ADR-001–010 全集 → 决策板块",
+    "back": "← 返回规划分区",
+    "loading": "原文加载中…",
+    "loadFail": "原文加载失败——如实展示，请重试或到源仓查看"
+  }
+}

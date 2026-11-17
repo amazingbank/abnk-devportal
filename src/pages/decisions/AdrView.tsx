@@ -5,7 +5,8 @@ import { PageShell } from '@/components/layout/PageShell';
 import { useDecisions, useLocale } from '@/i18n';
 import { decisionsRoute } from '@/lib/link-resolver';
 import { MdContent } from '@/lib/markdown/MdContent';
-import { adrDataPath, findAdr, loadAdrRaw, stripMetaHeader } from './decisions-data';
+import { stripMetaHeader } from '@/lib/markdown/meta';
+import { adrDataPath, findAdr, loadAdrRaw } from './decisions-data';
 
 // ADR 原文页（任务 3.3）：页头结构化呈现索引元数据（标题/日期/状态），正文按
 // 懒加载 ?raw 取原文剥离元信息头后渲染——「五仓定位表」等 GFM 表格依赖

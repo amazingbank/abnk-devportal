@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "lead": "A five-step user journey plus the balance check, arranged as-is from snapshots, screenshots and evidence — \"what a phone bank delivered by AI under ASDM looks like\".",
+    "carrier": "Carrier",
+    "chain": "Chain",
+    "data": "Data",
+    "evidence": "Primary evidence"
+  },
+  "step": {
+    "of": "Step {no}",
+    "check": "Balance check",
+    "nodes": "Snapshot key nodes",
+    "snapshotLink": "a11y snapshot ↗",
+    "shotLink": "Full screenshot ↗"
+  },
+  "carriers": {
+    "title": "Re-verified on three carriers",
+    "chainTitle": "Fineract counter chain (verified end to end)",
+    "shots": "Screenshots"
+  },
+  "honesty": {
+    "eyebrow": "HONESTY · PROBLEMS AT THE TIME",
+    "title": "Shown as-is, never polished",
+    "body": "The snapshots and problem records from the walkthrough render as-is — the pre-a11y state, visual placeholders, wiring fixes and environment pitfalls are the real traces of delivery.",
+    "rawLabel": "p3-login.yaml verbatim (a11y off)"
+  }
+}

@@ -6,15 +6,34 @@
 export { interpolate } from './interpolate';
 export { resolveBrowserLocale } from './locale';
 export { parseLocaleFromPathname, swapLocalePrefix } from './locale-url';
-export { useCommon, useDecisions, useHome, useLocale, useNav, useTimeline } from './use-locale';
+export {
+  useCommon,
+  useDecisions,
+  useEvidence,
+  useGovernance,
+  useHome,
+  useJourney,
+  useLocale,
+  useMethodology,
+  useMetrics,
+  useNav,
+  usePlanning,
+  useTimeline,
+} from './use-locale';
 export {
   DEFAULT_LOCALE,
   LOCALES,
   type Common,
   type Decisions,
+  type EvidenceCopy,
+  type GovernanceCopy,
   type Home,
+  type Journey,
   type Locale,
+  type MetricsCopy,
+  type MethodologyCopy,
   type Nav,
+  type PlanningCopy,
   type Timeline,
   type Translations,
 } from './resources';

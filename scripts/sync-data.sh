@@ -96,6 +96,51 @@ for pair in "${MAPPING[@]}"; do
   copy_count=$((copy_count + 1))
 done
 
+# 证据素材直供通道（Part04 任务 3.5 建基于 phaseP3，任务 3.6 泛化四 Part 全桶）：
+# 各 Part 的 artifacts 整桶复制到 public/evidence/<part>/，由静态服务直供——
+# 截图等二进制资产不 import 进 JS（「构建纯复制」D4 在资产层的延续；part 段
+# 保留、artifacts 段剥除，URL 形态 /evidence/<part>/<phase 桶>/…）；资产清单
+# manifest.json 随同步生成（确定性内容：仅文件清单、无时间戳——幂等复制），
+# 落在 evidence 根而不入任何桶目录——守恒计数不混入生成物。
+# Evidence asset direct-serve channel (task 3.5 founded it on phaseP3, task
+# 3.6 generalized it to all four part buckets): each part's artifacts bucket
+# is copied whole to public/evidence/<part>/ and served statically — binary
+# screenshots are never imported into JS (D4's "build by pure copy" extended
+# to the asset layer; the part segment stays, the artifacts segment strips,
+# yielding /evidence/<part>/<phase bucket>/… URLs). A deterministic
+# manifest.json (file list only, no timestamps — idempotent) is generated at
+# the evidence root, never inside a bucket, keeping the conservation counts
+# free of generated files.
+EVIDENCE_DST="$PORTAL_ROOT/public/evidence"
+for part in part01 part02 part03 part04; do
+  src_bucket="$SRC_SPRINTS/v0.0.1/$part/artifacts"
+  dst_bucket="$EVIDENCE_DST/$part"
+  if [[ "$MODE" == "check" ]]; then
+    echo "[check] 将同步: $src_bucket → $dst_bucket（证据素材直供通道）"
+    rsync -a --delete --dry-run --itemize --exclude .DS_Store "$src_bucket/" "$dst_bucket/" | sed 's/^/[check]   /'
+  else
+    mkdir -p "$dst_bucket"
+    rsync -a --delete --exclude .DS_Store "$src_bucket/" "$dst_bucket/"
+  fi
+done
+if [[ "$MODE" != "check" ]]; then
+  # 资产清单（全量四桶，静态 JSON，nginx/工具与审计可消费）。
+  # Asset manifest (all four buckets; a static JSON consumable by nginx, tooling and audits).
+  {
+    printf '{\n'
+    for part in part01 part02 part03 part04; do
+      [[ "$part" != "part01" ]] && printf ' ,\n'
+      printf '  "%s": {\n    "source": "Sprints/v0.0.1/%s/artifacts",\n    "files": [\n' "$part" "$part"
+      (cd "$EVIDENCE_DST/$part" && find . -type f ! -name .DS_Store | sed 's|^\./||' | LC_ALL=C sort \
+        | awk '{printf "      \"%s\",\n", $0}' | sed '$ s/,$//')
+      printf '    ]\n  }'
+    done
+    printf '\n}\n'
+  } > "$EVIDENCE_DST/manifest.json"
+  total_served=$(find "$EVIDENCE_DST" -path "$EVIDENCE_DST/manifest.json" -prune -o -type f -print | wc -l | tr -d ' ')
+  echo "evidence OK: 四桶直供 public/evidence/（合计 $total_served 文件，含全量截图），资产清单 manifest.json 已生成"
+fi
+
 if [[ "$MODE" == "check" ]]; then
   echo "[check] 干跑完成：$copy_count 个映射，未落盘（运行不带参数执行真实同步）"
   exit 0
@@ -110,4 +155,4 @@ if [[ "$baseline" != "$after" ]]; then
   exit 2
 fi
 
-echo "sync OK: 4 个映射已复制到 src/data/（index/sprints/planning/abnk-design/portal-content），源仓只读性成立（porcelain 前后一致）"
+echo "sync OK: 4 个映射已复制到 src/data/（index/sprints/planning/abnk-design/portal-content）+ 四桶证据素材直供 public/evidence/（任务 3.5 建基 / 3.6 泛化），源仓只读性成立（porcelain 前后一致）"

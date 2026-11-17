@@ -4,12 +4,16 @@ import { SPRINT_INDEX, type SprintData } from '@/pages/timeline/timeline-data';
 // 与时间线共用同一份索引加载（timeline-data 为共享数据模块——单一消费点，
 // 契约互证逻辑不复制两份）。ADR 原文按「已知坑 1」的懒加载形态取用：
 // import.meta.glob + ?raw 按需分块，3.3 的首个路由级 code-splitting 落地。
+// 任务 3.6 起 stripMetaHeader 上提至渲染管线（@/lib/markdown/meta）——六页面
+// 文档渲染共用（此处不再自有实现）。
 // Decision-page data module (task 3.3): narrows and re-exports the index's ADR
 // and part-decision regions, sharing the same index load with the timeline
 // (timeline-data acts as the shared module — a single consumption point, so
 // the contract cross-proof is never duplicated). ADR originals follow the
 // known-pitfall-1 lazy shape: import.meta.glob + ?raw chunks on demand — the
-// first route-level code-splitting, landing here in 3.3.
+// first route-level code-splitting, landing here in 3.3. Since task 3.6 the
+// front-matter stripper lives in the render pipeline (@/lib/markdown/meta),
+// shared by all six document pages (no local copy here anymore).
 export type AdrData = SprintData['adrs'][number];
 export type DecisionData = NonNullable<SprintData['parts'][number]['decisions']>[number];
 export type PartLike = SprintData['parts'][number];
@@ -31,15 +35,6 @@ const adrRawModules = import.meta.glob('/src/data/planning/abnk-design/adr/zh-CN
 
 export function loadAdrRaw(doc: string): (() => Promise<string>) | null {
   return adrRawModules[`/src/data/planning/abnk-design/adr/zh-CN/${doc}`] ?? null;
-}
-
-/** 渲染用正文：剥离元信息头（头由索引元数据在页头结构化呈现，正文只渲染原文）。 */
-/** Render body: strips the metadata header (the header renders structurally from index metadata). */
-export function stripMetaHeader(raw: string): string {
-  if (!raw.startsWith('---')) return raw;
-  const lines = raw.split('\n');
-  const end = lines.indexOf('---', 1);
-  return end > 0 ? lines.slice(end + 1).join('\n') : raw;
 }
 
 /** ADR 原文在数据树的绝对路径（markdown 相对链接的解析锚）。 */

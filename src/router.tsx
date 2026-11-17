@@ -16,6 +16,10 @@ import { ReproducePage } from '@/pages/ReproducePage';
 import { AdrView } from '@/pages/decisions/AdrView';
 import { DecisionsPage } from '@/pages/decisions/DecisionsPage';
 import { DecisionTimeline } from '@/pages/decisions/DecisionTimeline';
+import { DocView } from '@/pages/evidence/DocView';
+import { EvidenceIndex } from '@/pages/evidence/EvidenceIndex';
+import { MethodologyDoc, MethodologyIndex } from '@/pages/methodology/MethodologyView';
+import { PlanningDoc, PlanningIndex } from '@/pages/planning/PlanningView';
 import { PartView } from '@/pages/timeline/PartView';
 import { PhaseView } from '@/pages/timeline/PhaseView';
 import { SprintView } from '@/pages/timeline/SprintView';
@@ -143,6 +147,24 @@ export function PortalRouter() {
             <Route path="decisions" element={<DecisionsPage />}>
               <Route index element={<DecisionTimeline />} />
               <Route path="adr/:adrId" element={<AdrView />} />
+            </Route>
+            {/* 方法论：内容渲染（索引 + 篇章子路由，任务 3.6）。 */}
+            {/* Methodology: content rendering (index plus chapter child routes, task 3.6). */}
+            <Route path="methodology" element={<MethodologyPage />}>
+              <Route index element={<MethodologyIndex />} />
+              <Route path=":docId" element={<MethodologyDoc />} />
+            </Route>
+            {/* 规划原文：设计文档分区索引 + 单篇渲染（任务 3.6）。 */}
+            {/* Planning originals: the design-doc section index plus per-doc rendering (task 3.6). */}
+            <Route path="planning" element={<PlanningPage />}>
+              <Route index element={<PlanningIndex />} />
+              <Route path=":sectionId/:docId" element={<PlanningDoc />} />
+            </Route>
+            {/* 证据浏览：Part 分桶索引 + DocView 通用文档页（任务 3.6，六任务收口）。 */}
+            {/* Evidence browsing: the part-bucket index plus the DocView generic document page (task 3.6, the six-task closing). */}
+            <Route path="evidence" element={<EvidencePage />}>
+              <Route index element={<EvidenceIndex />} />
+              <Route path=":partId/doc/:docId" element={<DocView />} />
             </Route>
             <Route path="*" element={<UnknownPath />} />
           </Route>

@@ -1,7 +1,10 @@
-import { SectionPage } from './SectionPage';
+import { Outlet } from 'react-router-dom';
 
-// 规划原文板块页（任务 3.1 挂载点；ADR/设计文档原文渲染随任务 3.6 交付）。
-// Planning section page (task 3.1 mount point; ADR/design document rendering lands with task 3.6).
+// 规划板块路由壳（任务 3.1 挂载点；任务 3.6 起挂正式内容渲染——
+// 分区索引页与设计文档子路由由嵌套路由挂载，占位的「规划中」卡片随之退役）。
+// Planning route shell (task 3.1 mount point; since task 3.6 it mounts the
+// real content rendering — the section index and per-doc child routes mount
+// via nested routes, retiring the placeholder "planned" card).
 export function PlanningPage() {
-  return <SectionPage id="planning" />;
+  return <Outlet />;
 }

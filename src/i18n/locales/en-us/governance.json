@@ -1,0 +1,11 @@
+{
+  "list": {
+    "lead": "The governance guide and the repository openness boundary — five repo positions and two confidentiality lines, self-imposed.",
+    "adrCard": "The closing governance sample",
+    "adrCardTitle": "ADR-010 · Repository openness and confidentiality",
+    "adrCardBody": "Five repo positions, two boundary lines, and the pure-renderer constraint — the full original of the openness policy.",
+    "adrCardLink": "Read the ADR-010 original →",
+    "loading": "Loading the guide…",
+    "loadFail": "Failed to load the guide — shown as-is; retry or check the source repo"
+  }
+}

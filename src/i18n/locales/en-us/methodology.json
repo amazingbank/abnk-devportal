@@ -1,0 +1,10 @@
+{
+  "list": {
+    "lead": "The three pillars of the ASDM system — context engineering, harness engineering, self-iteration; a guided introduction sourced from public workshop courses.",
+    "docs": "Chapters",
+    "fallbackNote": "(zh-CN original · an English rewrite is on the roadmap)",
+    "back": "← Back to the methodology overview",
+    "loading": "Loading the original…",
+    "loadFail": "Failed to load the original — shown as-is; retry or check the source repo"
+  }
+}

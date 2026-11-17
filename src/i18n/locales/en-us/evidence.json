@@ -1,0 +1,32 @@
+{
+  "index": {
+    "lead": "Phase document originals and evidence assets (md/yaml/png/txt/json) browsable per part — the deepest reading layer, with expandable inline material cards.",
+    "docTitle": "Documents",
+    "docsCount": "{count} documents",
+    "evidenceCount": "{count} evidence files",
+    "phaseLabel": "Phase {key}",
+    "rootEvidence": "Root-level evidence",
+    "empty": "(no evidence files)"
+  },
+  "doc": {
+    "back": "Back to the evidence index",
+    "metaDate": "Date",
+    "metaPhase": "Phase",
+    "metaNote": "Note",
+    "movedTo": "Moved to",
+    "loading": "Loading the original…",
+    "loadFail": "Failed to load the original — shown as-is; retry or check the source repo",
+    "evidenceTitle": "Evidence assets (click to expand inline cards)",
+    "evidenceEmpty": "No evidence files linked to this document",
+    "originalLink": "Original file ↗",
+    "timelineLink": "This part on the timeline →"
+  },
+  "material": {
+    "image": "Screenshot",
+    "json": "JSON report",
+    "text": "Text",
+    "loading": "Loading content…",
+    "loadFail": "Failed to load content — shown as-is",
+    "originalLink": "Open the original"
+  }
+}

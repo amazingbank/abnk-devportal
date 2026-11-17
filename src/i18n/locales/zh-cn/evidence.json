@@ -1,0 +1,32 @@
+{
+  "index": {
+    "lead": "Phase 文档原文与证据素材（md/yaml/png/txt/json）按 Part 分桶浏览——最深一层的阅读对象，内联素材卡可展开核对。",
+    "docTitle": "文档",
+    "docsCount": "{count} 篇文档",
+    "evidenceCount": "{count} 个证据文件",
+    "phaseLabel": "Phase {key}",
+    "rootEvidence": "根级证据",
+    "empty": "（无证据件）"
+  },
+  "doc": {
+    "back": "返回证据索引",
+    "metaDate": "日期",
+    "metaPhase": "Phase",
+    "metaNote": "备注",
+    "movedTo": "移交至",
+    "loading": "原文加载中…",
+    "loadFail": "原文加载失败——如实展示，请重试或到源仓查看",
+    "evidenceTitle": "证据素材（点击展开内联卡）",
+    "evidenceEmpty": "本文档无关联证据件",
+    "originalLink": "原始文件 ↗",
+    "timelineLink": "时间线中的本 Part →"
+  },
+  "material": {
+    "image": "截图",
+    "json": "JSON 报告",
+    "text": "文本",
+    "loading": "内容加载中…",
+    "loadFail": "内容加载失败——如实展示",
+    "originalLink": "打开原文件"
+  }
+}

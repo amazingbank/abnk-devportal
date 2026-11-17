@@ -1,0 +1,57 @@
+{
+  "overview": {
+    "adrCount": "{count} ADRs",
+    "adrLink": "Decision timeline →",
+    "movedCount": "{count} moved tasks",
+    "movedLink": "Delivery timeline →",
+    "evidenceTotal": "{count} evidence files",
+    "locTotal": "{lines} lines of code",
+    "sprintSpan": "{days} days · {start} → {end}"
+  },
+  "quality": {
+    "eyebrow": "QUALITY · PART 02 · PHASE P2 FINAL VERIFICATION",
+    "title": "Four quality figures",
+    "note": "The pipeline's source for these figures is the Part02 Phase P2 full test report (the V1.1.6 source gate); the numbers on this page match that report's header line for line.",
+    "vp": "VP acceptance",
+    "unitTests": "Unit tests",
+    "e2e": "E2E assertions",
+    "drift": "Contract drift",
+    "ratio": "{passed} / {total}",
+    "driftZero": "0 (zero drift)",
+    "sourceLabel": "Source report",
+    "sourceLink": "v0.0.1-Part02-PhaseP2-Test-Report.md ↗",
+    "sourceFallback": "Source repo mirror ↗"
+  },
+  "rhythm": {
+    "title": "Sprint rhythm",
+    "days": "{days} days",
+    "sameDay": "same-day kickoff",
+    "range": "{start} → {end}"
+  },
+  "density": {
+    "title": "Evidence density",
+    "files": "{count} files",
+    "partLink": "Timeline →"
+  },
+  "loc": {
+    "title": "Code size (LOC)",
+    "snapshot": "Snapshot {snapshot}",
+    "total": "All text files combined: {lines} lines · {files} files",
+    "filesUnit": "{files} files"
+  },
+  "honesty": {
+    "eyebrow": "HONESTY · D6",
+    "title": "What is not done, shown as not done",
+    "body": "Transparency includes showing the unfinished — deferred items, moved tasks and a CI that has not run yet render as-is: never hidden, polished, or invented.",
+    "ciTitle": "CI status",
+    "ciNotRun": "Not run · planned",
+    "blockedTitle": "Deferred items",
+    "blockedBadge": "Deferred",
+    "blockedPart": "Part {num}",
+    "blockedSource": "Source",
+    "blockedReplay": "Replay plan",
+    "movedTitle": "Moved-task round trips",
+    "movedFrom": "from",
+    "movedTo": "to"
+  }
+}

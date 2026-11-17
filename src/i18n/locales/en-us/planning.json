@@ -1,0 +1,19 @@
+{
+  "list": {
+    "lead": "Back to the full context of the architectural decisions — design docs browsable by section (the full ADR set lives in the Decisions section).",
+    "readme": "Design-doc guide (README)",
+    "groups": {
+      "00-baseline": "Fact baseline (measured, not designed)",
+      "01-product": "Product",
+      "02-architecture": "Architecture",
+      "03-data-model": "Data model",
+      "04-operations": "Operations engineering",
+      "05-domains": "Business domains",
+      "06-evolution": "Evolution roadmap"
+    },
+    "adrLink": "ADR-001 through 010 → the Decisions section",
+    "back": "← Back to the planning sections",
+    "loading": "Loading the original…",
+    "loadFail": "Failed to load the original — shown as-is; retry or check the source repo"
+  }
+}

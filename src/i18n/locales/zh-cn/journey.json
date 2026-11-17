@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "lead": "五步用户旅程 + 余额核对，快照 / 截图 / 证据三素材按原样编排——「AI 按 ASDM 交付的手机银行长什么样」。",
+    "carrier": "载体",
+    "chain": "链路",
+    "data": "数据",
+    "evidence": "主证据"
+  },
+  "step": {
+    "of": "第 {no} 步",
+    "check": "核对步",
+    "nodes": "快照关键节点",
+    "snapshotLink": "a11y 快照 ↗",
+    "shotLink": "截图原图 ↗"
+  },
+  "carriers": {
+    "title": "三载体复验",
+    "chainTitle": "Fineract 计数链（全程核对）",
+    "shots": "截图"
+  },
+  "honesty": {
+    "eyebrow": "诚实性 · 当时的问题记录",
+    "title": "原样展示，不美化",
+    "body": "走查当时的快照与问题记录按原样呈现——a11y 未开启状态、视觉占位、接线修复与环境坑位都是交付过程的真实痕迹。",
+    "rawLabel": "p3-login.yaml 原文（a11y 未开启）"
+  }
+}

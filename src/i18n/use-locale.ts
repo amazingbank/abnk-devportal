@@ -1,7 +1,20 @@
 import { useContext } from 'react';
 
 import { LocaleContext } from './locale-context';
-import type { Common, Decisions, Home, Locale, Nav, Timeline } from './resources';
+import type {
+  Common,
+  Decisions,
+  EvidenceCopy,
+  GovernanceCopy,
+  Home,
+  Journey,
+  Locale,
+  MetricsCopy,
+  MethodologyCopy,
+  Nav,
+  PlanningCopy,
+  Timeline,
+} from './resources';
 
 export function useLocale() {
   const context = useContext(LocaleContext);
@@ -37,6 +50,42 @@ export function useTimeline(): Timeline {
 /** Decision-timeline copy (ADR status vocabulary, card labels, revision context). */
 export function useDecisions(): Decisions {
   return useLocale().decisions;
+}
+
+/** 指标仪表盘页文案（四指标/节奏/密度/LOC/诚实性标注）。 */
+/** Metrics-dashboard copy (four quality figures, rhythm, density, LOC, honesty labels). */
+export function useMetrics(): MetricsCopy {
+  return useLocale().metrics;
+}
+
+/** E2E 旅程页文案（步骤/载体/诚实性标注）。 */
+/** E2E-journey copy (steps, carriers, honesty labels). */
+export function useJourney(): Journey {
+  return useLocale().journey;
+}
+
+/** 证据浏览页文案（文档/索引/素材卡）。 */
+/** Evidence-browsing copy (documents, index, material cards). */
+export function useEvidence(): EvidenceCopy {
+  return useLocale().evidence;
+}
+
+/** 方法论板块页文案（篇章列表/回链/加载态）。 */
+/** Methodology section copy (chapter list, back link, load states). */
+export function useMethodology(): MethodologyCopy {
+  return useLocale().methodology;
+}
+
+/** 规划板块页文案（分区标签/回链/加载态）。 */
+/** Planning section copy (section labels, back link, load states). */
+export function usePlanning(): PlanningCopy {
+  return useLocale().planning;
+}
+
+/** 治理板块页文案（导读卡/加载态）。 */
+/** Governance section copy (guide card, load states). */
+export function useGovernance(): GovernanceCopy {
+  return useLocale().governance;
 }
 
 export type { Locale };

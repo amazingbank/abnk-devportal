@@ -1,0 +1,57 @@
+{
+  "overview": {
+    "adrCount": "{count} 个 ADR",
+    "adrLink": "决策时间线 →",
+    "movedCount": "{count} 项任务移交",
+    "movedLink": "迭代时间线 →",
+    "evidenceTotal": "{count} 个证据文件",
+    "locTotal": "{lines} 行代码",
+    "sprintSpan": "{days} 天 · {start} → {end}"
+  },
+  "quality": {
+    "eyebrow": "质量 · PART 02 · PHASE P2 终验",
+    "title": "质量四指标",
+    "note": "管线源头 = Part02 Phase P2 完整测试报告（V1.1.6 源头判据）；本页数字与源报告头部逐项一致。",
+    "vp": "VP 达成",
+    "unitTests": "单元测试",
+    "e2e": "E2E 断言",
+    "drift": "契约漂移",
+    "ratio": "{passed} / {total}",
+    "driftZero": "0（零漂移）",
+    "sourceLabel": "源报告",
+    "sourceLink": "v0.0.1-Part02-PhaseP2-Test-Report.md ↗",
+    "sourceFallback": "源仓镜像 ↗"
+  },
+  "rhythm": {
+    "title": "Sprint 节奏",
+    "days": "{days} 天",
+    "sameDay": "当日开工",
+    "range": "{start} → {end}"
+  },
+  "density": {
+    "title": "证据密度",
+    "files": "{count} 个文件",
+    "partLink": "时间线 →"
+  },
+  "loc": {
+    "title": "代码规模 LOC",
+    "snapshot": "快照 {snapshot}",
+    "total": "全部文本文件总计：{lines} 行 · {files} 个文件",
+    "filesUnit": "{files} 文件"
+  },
+  "honesty": {
+    "eyebrow": "诚实性 · D6",
+    "title": "未完成项，如实展示",
+    "body": "透明包括透明地展示未完成——挂账、移交与未实跑的 CI 按原样呈现：不隐藏、不美化、不虚构。",
+    "ciTitle": "CI 状态",
+    "ciNotRun": "未实跑 · 规划中",
+    "blockedTitle": "挂账清单",
+    "blockedBadge": "挂账",
+    "blockedPart": "Part {num}",
+    "blockedSource": "出处",
+    "blockedReplay": "复验计划",
+    "movedTitle": "移交往返",
+    "movedFrom": "自",
+    "movedTo": "至"
+  }
+}

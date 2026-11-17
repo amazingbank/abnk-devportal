@@ -20,6 +20,13 @@ dist-ssr
 src/data/*
 !src/data/schema.ts
 
+# 旅程素材直供通道（任务 3.5）：public/evidence/ 下是 sync-data.sh 的只读复制
+# 产物与生成的资产清单 manifest.json，构建时生成、不入库（与 src/data/ 同纪律）。
+# Journey direct-serve channel (task 3.5): everything under public/evidence/ is
+# a sync-data.sh copy product plus the generated manifest.json — generated at
+# build time and never committed (same discipline as src/data/).
+public/evidence
+
 .vscode/*
 !.vscode/extensions.json
 .idea
