@@ -1,0 +1,14 @@
+# ABNK Dev Portal — 构建上下文排除清单
+# 排除本地生成物：数据唯一来源是构建内 `npm run sync`（Dockerfile 以附加上下文
+# asdm=../.asdm 注入数据源后原样运行 sync-data.sh），宿主机 src/data 与
+# public/evidence 的同步残留不入镜像——保证镜像确定性与宿主机状态解耦。
+# ABNK Dev Portal — build-context exclusion list.
+# Local generated artifacts are excluded: the single data path is the in-build
+# `npm run sync` (the Dockerfile injects the data source via the additional
+# context asdm=../.asdm), so host-side sync leftovers never enter the image —
+# image determinism decoupled from host working-tree state.
+node_modules
+dist
+src/data
+public/evidence
+.DS_Store
