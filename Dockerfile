@@ -10,8 +10,8 @@
 #   asdm = abnk-asdm 仓（四个数据分区）：容器内重建「并排两仓」布局（/workspace/.asdm 与 /workspace/abnk-devportal），
 #   sync-data.sh 按 ../.asdm 相对寻址原样运行：构建对数据源零提取逻辑，
 #   与宿主机未提交状态解耦（D4「提取入库、构建纯复制」的容器化延续）。
-#   容器内 .asdm 为目录快照而非 git 仓——sync 的只读性证明退化为平凡成立
-#   （git -C 失败静默跳过），真实只读性由宿主侧执行同一脚本时验证。
+#   容器内 .asdm 随附加上下文携带 .git（builder 已装 git）——sync 的只读性
+#   证明与数据新鲜度锚点（index 最后 commit）在容器内真实运行，非降级形态。
 #   tokens = abnk-system/channels/shared（design-tokens.json 单一事实源，
 #   tailwind.config.js 经 ../abnk-system 相对寻址 + fail-loud 消费）——
 #   context 根收敛到 shared 子目录（92K），不传输整个 abnk-system 仓。
@@ -26,8 +26,9 @@
 # as BuildKit additional contexts: asdm (the four abnk-asdm data partitions,
 # laid out side-by-side so sync-data.sh runs unchanged — zero extraction logic
 # against the source, decoupled from host working-tree state, D4 containerized;
-# inside the image .asdm is a directory snapshot so the sync script's read-only
-# proof degrades to trivially true — the real proof runs on the host) and
+# inside the image .asdm carries .git via the additional context and git is
+# installed in the builder, so both the sync script's read-only proof and the
+# data-as-of anchor (the index's last commit) run for real in-container) and
 # tokens (abnk-system/channels/shared, the design-tokens single source of truth
 # that tailwind.config.js consumes fail-loud via the ../abnk-system relative
 # path — the context root narrows to the shared subdir, avoiding the transfer
@@ -39,9 +40,12 @@
 FROM --platform=$BUILDPLATFORM node:22-alpine AS build
 WORKDIR /workspace/abnk-devportal
 
-# sync-data.sh 依赖 bash + rsync（alpine 基础镜像默认不含二者）
-# sync-data.sh needs bash + rsync (absent from the alpine base image by default)
-RUN apk add --no-cache bash rsync
+# sync-data.sh 依赖 bash + rsync + git（alpine 基础镜像默认不含；git 供 sync 的
+# 只读性证明与数据新鲜度锚点捕获——.asdm 附加上下文携带 .git）
+# sync-data.sh needs bash + rsync + git (absent from the alpine base image by
+# default; git serves the sync read-only proof and the data-as-of anchor
+# capture — the .asdm additional context carries .git)
+RUN apk add --no-cache bash rsync git
 
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund

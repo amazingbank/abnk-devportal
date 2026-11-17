@@ -22,7 +22,8 @@
     "tagline": "不生产内容的渲染器：把 ASDM 过程资产原样披露为规划、决策、迭代、证据、测试与指标。",
     "repoAsdmLabel": "数据源仓 abnk-asdm",
     "repoPortalLabel": "本仓 abnk-devportal",
-    "copyright": "© {year} Amazing Bank（ABNK）"
+    "copyright": "© {year} Amazing Bank（ABNK）",
+    "dataAsOf": "数据截至 {date}（index commit {commit}）"
   },
   "section": {
     "plannedEyebrow": "板块就位中 · 规划中",

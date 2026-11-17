@@ -96,6 +96,34 @@ for pair in "${MAPPING[@]}"; do
   copy_count=$((copy_count + 1))
 done
 
+# 数据新鲜度锚点（Part04 任务 4.4，已知坑 5）：捕获源仓 workspace/index 的最后
+# commit（日期 + 短哈希）——页脚「数据截至」的唯一事实源。发布是手动链（CI 未
+# 实跑），页脚如实展示数据时点（D6 诚实性在发布层的落地，勿虚标）。确定性内容
+# （源状态的函数、与运行时刻无关）；落点 src/data 根——不在任何 rsync 映射桶
+# 内，守恒计数不混入生成物（同 manifest.json 先例）。git 不可用则跳过写入
+# （构建链容器内 .git 随附加上下文携带，此前提由 Dockerfile 保证）。
+# Data-freshness anchor (Part04 task 4.4, known pitfall 5): capture the source
+# repo's last commit touching workspace/index (date + short hash) — the single
+# source of truth for the footer's "data as of". Releases are a manual chain (CI
+# not yet running), so the footer states the data point verbatim (D6 honesty at
+# the release layer, never overstated). Deterministic content (a function of
+# source state, not wall-clock); written at the src/data root — outside every
+# rsync mapping bucket so conservation counts stay free of generated files (the
+# manifest.json precedent). Skipped when git is unavailable (in-container builds
+# carry .git via the additional context, guaranteed by the Dockerfile).
+data_as_of="$(git -C "$ASDM" log -1 --format='%cd %h' --date=short -- workspace/index 2>/dev/null || true)"
+if [[ -n "$data_as_of" && "$MODE" != "check" ]]; then
+  as_of_date="${data_as_of%% *}"
+  as_of_commit="${data_as_of##* }"
+  printf '{\n  "asOf": "%s",\n  "commit": "%s"\n}\n' "$as_of_date" "$as_of_commit" > "$PORTAL_ROOT/src/data/data-as-of.json"
+  # 花括号定界：全角标点首字节（高字节）会被 bash 计入变量名——裸引用后紧跟
+  # 多字节字符即触发 set -u 误报 unbound。
+  # Brace delimiting: the lead byte of fullwidth punctuation (a high byte) is
+  # counted into bare variable names by bash — a bare reference immediately
+  # followed by a multibyte char trips set -u with a bogus unbound error.
+  echo "data-as-of OK: src/data/data-as-of.json（index 最后 commit ${as_of_commit} @ ${as_of_date}）"
+fi
+
 # 证据素材直供通道（Part04 任务 3.5 建基于 phaseP3，任务 3.6 泛化四 Part 全桶）：
 # 各 Part 的 artifacts 整桶复制到 public/evidence/<part>/，由静态服务直供——
 # 截图等二进制资产不 import 进 JS（「构建纯复制」D4 在资产层的延续；part 段

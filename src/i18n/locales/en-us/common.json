@@ -22,7 +22,8 @@
     "tagline": "A renderer, not a producer: ASDM process assets disclosed as-is — plans, decisions, iterations, evidence, tests and metrics.",
     "repoAsdmLabel": "Data source repo abnk-asdm",
     "repoPortalLabel": "This repo abnk-devportal",
-    "copyright": "© {year} Amazing Bank (ABNK)"
+    "copyright": "© {year} Amazing Bank (ABNK)",
+    "dataAsOf": "Data as of {date} (index commit {commit})"
   },
   "section": {
     "plannedEyebrow": "Section pending · planned",
